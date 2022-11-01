@@ -41,8 +41,7 @@ class MensalidadeController extends Controller
     public function create()
     {
         $clientes = Cliente::all();
-        $produtos = Produto::all();
-        return view('mensalidade.create',['clientes'=>$clientes,'produtos'=>$produtos]);
+        return view('mensalidade.create',['clientes'=>$clientes]);
     }
 
     /**
@@ -57,6 +56,10 @@ class MensalidadeController extends Controller
         $mensalidade->nome_pessoa = $request->input('cliente_id');
         $mensalidade->situacao = $request->input('situacao');
         $mensalidade->fimmensalidade = null;
+        if ($request->input('situacao') == "pago") {
+            $mensalidade->updated_at = \Carbon\Carbon::now();
+        }
+        $mensalidade->updated_at =null;
 
         if($mensalidade->save()) {
             return redirect('mensalidade');
@@ -85,8 +88,7 @@ class MensalidadeController extends Controller
     public function pagar(Request $request, $id)
     {
     $mensalidade = Mensalidade::find($id);
-    $mensalidade->created_at = \Carbon\Carbon::now();
-    $mensalidade->fimmensalidade = \Carbon\Carbon::toDateTime(30);
+    $mensalidade->updated_at = \Carbon\Carbon::now();
     $mensalidade->save();
 
     if($mensalidade->save()) {
@@ -117,7 +119,7 @@ class MensalidadeController extends Controller
      * @param  \App\Models\Mensalidade  $mensalidade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mensalidade $mensalidade)
+    public function destroy($id)
     {
         $mensalidade = Mensalidade::find($id);
 

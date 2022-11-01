@@ -20,12 +20,16 @@
         {{Form::text('cliente_id','',['class'=>'form-control','required','placeholder'=>'Selecione um cliente','list'=>'listclientes'])}}
         <datalist id='listclientes'>
             @foreach($clientes as $cliente)
-                <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
+                <option value="{{$cliente->nome}}"></option>
             @endforeach
         </datalist>
 
     {!! Form::label('situacao', 'Situação') !!}
-    {!! Form::text('situacao', '', ['class'=>'form-control', 'required', 'placeholder' =>'Situação da mensalidade ']) !!}
+    {!! Form::text('situacao', '', ['class'=>'form-control', 'required', 'placeholder' =>'Situação da mensalidade ','list'=>'listsituacao']) !!}
+    <datalist id='listsituacao'>
+                <option value="pago">pago</option>
+                <option value="notpago">não pago</option>
+        </datalist>
     <hr>
     {!! Form::submit('Salvar',['class'=>'btn btn-primary shadow']) !!} |
     {!!Form::button('Cancelar',['onclick'=>'javascript:history.go(-1)', 'class'=>'btn btn-secondary shadow'])!!}

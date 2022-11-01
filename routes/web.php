@@ -19,8 +19,13 @@ use App\Http\Controllers\MensalidadeController;
 Route::get('/laravel', function () {
     return view('welcome');
 });
+Route::get('/academia', function () {
+    return view('academia.index');
+});
 Route::resource("/",ProdutosController::class);
 Route::resource("admin",ClientesController::class);
+
+Route::resource("produto",ProdutosController::class);
 
 Route::resource("mensalidade",MensalidadeController::class);
 Route::put('mensalidade/{mensalidade}/pagar',[MensalidadeController::class,'pagar'])->name('mensalidade.pagar');

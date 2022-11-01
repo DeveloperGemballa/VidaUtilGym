@@ -11,7 +11,6 @@
     <style>
         .headermenu {
             width: 100%;
-            height: 17vh;
             
             background: #D9D9D9;
             text-align:center;
@@ -64,7 +63,6 @@
         .productstop {
             position: absolute;
             width: 150vh;
-            height: 100vh;
             left: 20vh;
             top: 95vh;
 
@@ -88,11 +86,13 @@
         <div class="headermotivation">
             @yield('motivation')
         </div>
-        <a href="/" class="btn btn-light">Client</a> |
-        <a href="/admin" class="btn">listar clientes</a>
-        <a href="{{url('admin/create')}}" class="btn">Adicionar cliente</a> |
-        <a href="/mensalidade" class="btn btn-light">listar mensalidades</a>
-        <a href="{{url('mensalidade/create')}}" class="btn btn-light">Adicionar mensalidade</a>
+        <a href="/admin" class="btn" style="margin:10px;">listar clientes</a>
+        <a href="{{url('admin/create')}}" class="btn" style="margin:10px;">Adicionar cliente</a> |
+        <a href="/mensalidade" class="btn btn-light" style="margin:10px;">listar mensalidades</a>
+        <a href="{{url('mensalidade/create')}}" class="btn btn-light" style="margin:10px;">Adicionar mensalidade</a> |
+        <a href="/produto" class="btn" style="margin:10px;">listar produtos</a>
+        <a href="{{url('produto/create')}}" class="btn" style="margin:10px;">Adicionar produto</a> |
+        <a href="/academia" class="btn btn-light" style="margin:10px;">Nossa Academia</a>
     </div>
     <div>
         @yield('content')

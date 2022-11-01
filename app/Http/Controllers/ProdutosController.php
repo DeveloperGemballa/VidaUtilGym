@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Produto;
+use App\Models\Categoria;
 
 class ProdutosController extends Controller
 {
@@ -15,10 +16,9 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::all();
         $produtos = Produto::all();
         $produtopromo = Produto::find(1);
-        return view("geral.index", array('clientes' => $clientes,'produtos' => $produtos,'produtopromo' => $produtopromo));
+        return view("produto.index", array('produtos' => $produtos,'produtopromo' => $produtopromo));
     }
 
     /**
@@ -28,7 +28,8 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+        return view('produto.create',['categorias'=>$categorias]);
     }
 
     /**
@@ -39,7 +40,15 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produto = new Produto();
+        $produto->nome = $request->input('nome');
+        $produto->funcao = $request->input('funcao');
+        $produto->preco = $request->input('preco');
+        $produto->nome_categoria = $request->input('nome_categoria');
+
+        if($produto->save()) {
+            return redirect('produto');
+        }
     }
 
     /**
