@@ -17,7 +17,7 @@ class ClientesController extends Controller
     public function index()
     {
         $clientes = Cliente::all();
-        return view("cliente.index", array('clientes' => $clientes));
+        return view("cliente.index", array('clientes' => $clientes,'busca'=>null));
     }
 
     /**
@@ -30,6 +30,8 @@ class ClientesController extends Controller
         $mensalidade = Mensalidade::all();
         return view('cliente.create',['mensalidade'=>$mensalidade]);
     }
+
+    
 
     /**
      * Store a newly created resource in storage.

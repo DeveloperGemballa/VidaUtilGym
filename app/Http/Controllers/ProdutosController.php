@@ -17,7 +17,7 @@ class ProdutosController extends Controller
     public function index()
     {
         $produtos = Produto::all();
-        $produtopromo = Produto::find(1);
+        $produtopromo = Produto::find(8);
         return view("produto.index", array('produtos' => $produtos,'produtopromo' => $produtopromo));
     }
 
@@ -47,6 +47,12 @@ class ProdutosController extends Controller
         $produto->nome_categoria = $request->input('nome_categoria');
 
         if($produto->save()) {
+            if($request->hasFile('foto'))
+            {
+                $imagem = $request->file('foto');
+                $nomearquivo = md5($produto->id).".".$imagem->getClientOriginalExtension();
+                $request->file('foto')->move(public_path('.\img\produtos'),$nomearquivo);
+            }
             return redirect('produto');
         }
     }
@@ -82,7 +88,12 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->hasFile('foto'))
+            {
+                $imagem = $request->file('foto');
+                $nomearquivo = md5($produto->id).".".$imagem->getClientOriginalExtension();
+                $request->file('foto')->move(public_path('.\img\produtos'),$nomearquivo);
+            }
     }
 
     /**

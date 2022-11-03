@@ -15,7 +15,7 @@
         </ul>
     </div>
     @endif
-    {!! Form::open(['route' => 'produto.store', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => 'produto.store', 'method' => 'POST', 'enctype'=>'multipart/form-data']) !!}
     {!! Form::label('nome', 'Nome') !!}
     {!! Form::text('nome', '', ['class'=>'form-control', 'required', 'placeholder' =>'Nome completo']) !!}
     
@@ -25,6 +25,9 @@
     {!! Form::label('preco', 'Preço') !!}
     {!! Form::text('preco', '', ['class'=>'form-control', 'required', 'placeholder' =>'Endereço residencial']) !!}
     
+    {!! Form::label('foto', 'foto') !!}
+    {!! Form::file('foto', ['class'=>'form-control', 'id'=>'foto']) !!}
+
     {!! Form::label('nome_categoria', 'nome_categoria') !!}
     {!! Form::text('nome_categoria', '', ['class'=>'form-control', 'required', 'placeholder' =>'Telefone para contato','list'=>'listcategorias']) !!}
     <datalist id='listcategorias'>

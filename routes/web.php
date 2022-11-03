@@ -24,6 +24,7 @@ Route::get('/academia', function () {
 });
 Route::resource("/",ProdutosController::class);
 Route::resource("admin",ClientesController::class);
+Route::get('admin/buscar',[ClienteController::class,'buscar']);
 
 Route::resource("produto",ProdutosController::class);
 
