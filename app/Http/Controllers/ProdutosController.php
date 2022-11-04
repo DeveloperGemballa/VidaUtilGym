@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Produto;
 use App\Models\Categoria;
+use Session;
 
 class ProdutosController extends Controller
 {
@@ -18,7 +19,8 @@ class ProdutosController extends Controller
     {
         $produtos = Produto::all();
         $produtopromo = Produto::find(8);
-        return view("produto.index", array('produtos' => $produtos,'produtopromo' => $produtopromo));
+        $produtoscarousel = Produto::all();
+        return view("produto.index", array('produtos' => $produtos,'produtopromo' => $produtopromo,'produtoscarousel' => $produtoscarousel));
     }
 
     /**
@@ -65,7 +67,9 @@ class ProdutosController extends Controller
      */
     public function show($id)
     {
-        //
+        $categorias = Categoria::all();
+        $produto = Produto::find($id);
+        return view("produto.show",["produto"=>$produto,'categorias'=>$categorias]);
     }
 
     /**
@@ -76,7 +80,9 @@ class ProdutosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categorias = Categoria::all();
+        $produto = Produto::find($id);
+        return view("produto.edit",array("produto"=>$produto,'categorias'=>$categorias));
     }
 
     /**
@@ -93,6 +99,15 @@ class ProdutosController extends Controller
                 $imagem = $request->file('foto');
                 $nomearquivo = md5($produto->id).".".$imagem->getClientOriginalExtension();
                 $request->file('foto')->move(public_path('.\img\produtos'),$nomearquivo);
+            }
+        $produto = Produto::find($id);
+        $produto->nome = $request->input('nome');
+        $produto->funcao = $request->input('funcao');
+        $produto->preco = $request->input('preco');
+        $produto->nome_categoria = $request->input('nome_categoria');
+        if($produto->save()) {
+            Session::flash('mensagem','Produto alterado com sucesso');
+            return redirect()->back();
             }
     }
 

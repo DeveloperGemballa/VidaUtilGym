@@ -4,6 +4,7 @@
 <h1 class="display-3">Vida Útil Academia</h1>
 @endsection
 @section("content")
+<br>
     <div id="carouselExampleCaptions" class="carousel slide container" data-bs-ride="false">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -12,22 +13,22 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-        <img src="#" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
+        {{Html::image(asset('img/gym/academia1.webp'),'Foto de academia',["class"=>"d-block w-100", "style"=>"height:80vh;border-radius:20px;" ])}}
+        <div class="carousel-caption d-none d-md-block shadow">
             <h5>First slide label</h5>
             <p>Some representative placeholder content for the first slide.</p>
         </div>
         </div>
         <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
+        {{Html::image(asset('img/gym/academia2.webp'),'Foto de academia',["class"=>"d-block w-100" , "style"=>"height:80vh;border-radius:20px;" ])}}
+        <div class="carousel-caption d-none d-md-block shadow">
             <h5>Second slide label</h5>
             <p>Some representative placeholder content for the second slide.</p>
         </div>
         </div>
         <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
+        {{Html::image(asset('img/gym/academia3.webp'),'Foto de academia',["class"=>"d-block w-100" , "style"=>"height:80vh;border-radius:20px;" ])}}
+        <div class="carousel-caption d-none d-md-block shadow">
             <h5>Third slide label</h5>
             <p>Some representative placeholder content for the third slide.</p>
         </div>

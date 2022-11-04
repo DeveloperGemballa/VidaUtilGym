@@ -39,7 +39,6 @@
             left: 5vh;
             top: 52vh;
 
-            background: #D9D9D9;
             text-align:center;
         }
         .description {
@@ -48,8 +47,6 @@
             height: 10vh;
             left: 1vh;
             top: 58vh;
-
-            background: #D9D9D9;
         }
         .buttonbuy {
             position: absolute;
@@ -82,7 +79,7 @@
     <title>@yield('titleweb')</title>
 </head>
 <body>
-    <div class="headermenu">
+    <div class="headermenu shadow">
         <div class="headermotivation">
             @yield('motivation')
         </div>
