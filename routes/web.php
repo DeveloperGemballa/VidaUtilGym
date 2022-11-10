@@ -30,3 +30,7 @@ Route::resource("produto",ProdutosController::class);
 
 Route::resource("mensalidade",MensalidadeController::class);
 Route::put('mensalidade/{mensalidade}/pagar',[MensalidadeController::class,'pagar'])->name('mensalidade.pagar');
+Auth::routes();
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

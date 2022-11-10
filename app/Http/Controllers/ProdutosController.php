@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Produto;
@@ -18,7 +20,7 @@ class ProdutosController extends Controller
     public function index()
     {
         $produtos = Produto::all();
-        $produtopromo = Produto::find(8);
+        $produtopromo = Produto::find(9);
         $produtoscarousel = Produto::all();
         return view("produto.index", array('produtos' => $produtos,'produtopromo' => $produtopromo,'produtoscarousel' => $produtoscarousel));
     }
@@ -30,8 +32,13 @@ class ProdutosController extends Controller
      */
     public function create()
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $categorias = Categoria::all();
         return view('produto.create',['categorias'=>$categorias]);
+    }
+    else {
+        return redirect('login');
+    }
     }
 
     /**
@@ -42,6 +49,7 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $produto = new Produto();
         $produto->nome = $request->input('nome');
         $produto->funcao = $request->input('funcao');
@@ -57,6 +65,10 @@ class ProdutosController extends Controller
             }
             return redirect('produto');
         }
+    }
+    else {
+        return redirect('login');
+    }
     }
 
     /**
@@ -80,9 +92,14 @@ class ProdutosController extends Controller
      */
     public function edit($id)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $categorias = Categoria::all();
         $produto = Produto::find($id);
         return view("produto.edit",array("produto"=>$produto,'categorias'=>$categorias));
+    }
+    else {
+        return redirect('login');
+    }
     }
 
     /**
@@ -94,6 +111,7 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         if($request->hasFile('foto'))
             {
                 $imagem = $request->file('foto');
@@ -109,6 +127,10 @@ class ProdutosController extends Controller
             Session::flash('mensagem','Produto alterado com sucesso');
             return redirect()->back();
             }
+        }
+        else {
+            return redirect('login');
+        }
     }
 
     /**

@@ -45,7 +45,9 @@
                 <li><p>Preço: R${{ $produto->preco }}</p></li>
             </ul>
             <hr style="width:60vh;position:relative;left:40vh;">
+            @if((Auth::check()) && (Auth::user()->isAdmin()))
             <a href="{{url('produto/'.$produto->id.'/edit')}}" class="btn btn-warning shadow" style="margin:20px;">Alterar</a> |
+            @endif
             <a href="{{url('produto')}}" class="btn btn-info shadow" style="margin:20px;">Voltar</a>
             <div class="accordion accordion-flush" id="accordionFlushExample">
   

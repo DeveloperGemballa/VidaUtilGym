@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Cliente;
 use App\Models\Produto;
 use App\Models\Mensalidade;
@@ -40,8 +42,13 @@ class MensalidadeController extends Controller
      */
     public function create()
     {
-        $clientes = Cliente::all();
-        return view('mensalidade.create',['clientes'=>$clientes]);
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            $clientes = Cliente::all();
+            return view('mensalidade.create',['clientes'=>$clientes]);
+        }
+        else {
+            return redirect('login');
+        }
     }
 
     /**
@@ -52,6 +59,7 @@ class MensalidadeController extends Controller
      */
     public function store(Request $request)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $mensalidade = new Mensalidade();
         $mensalidade->nome_pessoa = $request->input('cliente_id');
         $mensalidade->situacao = $request->input('situacao');
@@ -64,6 +72,10 @@ class MensalidadeController extends Controller
         if($mensalidade->save()) {
             return redirect('mensalidade');
         }
+    }
+    else {
+        return redirect('login');
+    }
     }
 
     /**
@@ -87,13 +99,17 @@ class MensalidadeController extends Controller
 
     public function pagar(Request $request, $id)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
     $mensalidade = Mensalidade::find($id);
     $mensalidade->updated_at = \Carbon\Carbon::now();
     $mensalidade->save();
-
-    if($mensalidade->save()) {
-        Session::flash('mensagem','Mensalidade atualizada');
-        return redirect('mensalidade');
+        if($mensalidade->save()) {
+            Session::flash('mensagem','Mensalidade atualizada');
+            return redirect('mensalidade');
+        }
+    }
+    else {
+        return redirect('login');
     }}
 
     public function edit(Mensalidade $mensalidade)
@@ -121,10 +137,15 @@ class MensalidadeController extends Controller
      */
     public function destroy($id)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $mensalidade = Mensalidade::find($id);
 
         $mensalidade->delete();
         Session::flash('mensagem','Mensalidade Excluída com Sucesso');
         return redirect(url('mensalidade/'));
+    }
+    else {
+        return redirect('login');
+    }
     }
 }

@@ -20,10 +20,14 @@
                 $nomeimagem = "./img/produtos/image.webp";
             }
             ?>
-            
     
     <div class="productpromo shadow">
-        {{Html::image(asset($nomeimagem),'Foto de '.$produtopromo->nome,["align"=>"center", "class"=>"card-img-top" , "style"=>"width:80vh;height:45vh;border-radius:30px;position:absolute;left:20%;top:5%;"])}}
+        <div style="width:20vh;margin:5vh;height:40vh;border-radius:10px;">
+            <h1 class="display-6">Descrição:</h1>
+            {{ $produtopromo->funcao }}
+        </div>
+
+        {{Html::image(asset($nomeimagem),'Foto de '.$produtopromo->nome,["align"=>"center", "class"=>"card-img-top" , "style"=>"width:80vh;height:45vh;border-radius:30px;position:absolute;left:30%;top:5%;"])}}
         <div class="price">
             <h1 class="display-6">R${{ $produtopromo->preco }}</h1>
         </div>
@@ -31,13 +35,11 @@
             <h1 class="display-6">
                     {{ $produtopromo->nome }}
             </h1>
-            {{ $produtopromo->funcao }}
         </div>
-        <a href="{{url('produto/'. $produtopromo->id )}}" class="btn btn-danger">
-            <div class="buttonbuy shadow" style="border-radius:50%;">
-                <h1 class="display-6" style="margin:20px;">BUY</h1>
+        
+            <div style="position:absolute;left:90vh;top:32vh;">
+                <a href="{{url('produto/'. $produtopromo->id )}}" class="btn btn-danger shadow" style="position:absolute;top:25vh;width:100px;height:65px;left:3vh;"><h1 class="display-6" style="font-size:25px;position:absolute;top:15px;">BUY</h1></a>  
             </div>
-        </a>
     </div>
     <div class="productstop shadow">
         <div class="nameredproductstop">

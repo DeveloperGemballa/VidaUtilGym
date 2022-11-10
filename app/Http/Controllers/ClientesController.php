@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Mensalidade;
@@ -27,8 +29,13 @@ class ClientesController extends Controller
      */
     public function create()
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $mensalidade = Mensalidade::all();
         return view('cliente.create',['mensalidade'=>$mensalidade]);
+    }
+    else {
+        return redirect('login');
+    }
     }
 
     
@@ -41,6 +48,7 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $Cliente = new Cliente();
         $Cliente->nome = $request->input('nome');
         $Cliente->cpf = $request->input('cpf');
@@ -51,6 +59,10 @@ class ClientesController extends Controller
         if($Cliente->save())
         {
             return redirect('admin');
+        }
+        }
+        else {
+            return redirect('login');
         }
     }
 
@@ -74,8 +86,13 @@ class ClientesController extends Controller
      */
     public function edit($id)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $cliente = Cliente::find($id);
         return view("cliente.edit",array("cliente"=>$cliente));
+    }
+    else {
+        return redirect('login');
+    }
     }
 
     /**
@@ -87,6 +104,7 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $Cliente = Cliente::find($id);
         $Cliente->nome = $request->input('nome');
         $Cliente->cpf = $request->input('cpf');
@@ -100,6 +118,10 @@ class ClientesController extends Controller
             return redirect()->back();
         }
     }
+    else {
+        return redirect('login');
+    }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -109,10 +131,15 @@ class ClientesController extends Controller
      */
     public function destroy($id)
     {
+        if ((Auth::check()) && (Auth::user()->isAdmin())) {
         $cliente = Cliente::find($id);
 
         $cliente->delete();
         Session::flash('mensagem','Cliente Excluído com Sucesso');
         return redirect(url('admin/'));
+    }
+    else {
+        return redirect('login');
+    }
     }
 }
