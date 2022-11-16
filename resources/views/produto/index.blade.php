@@ -38,7 +38,7 @@
         </div>
         
             <div style="position:absolute;left:90vh;top:32vh;">
-                <a href="{{url('produto/'. $produtopromo->id )}}" class="btn btn-danger shadow" style="position:absolute;top:25vh;width:100px;height:65px;left:3vh;"><h1 class="display-6" style="font-size:25px;position:absolute;top:15px;">BUY</h1></a>  
+                <a href="{{url('produto/'. $produtopromo->id )}}" class="btn shadow" style="position:absolute;top:25vh;width:100px;height:65px;left:3vh;background:#c21a01;color:white;"><h1 class="display-6" style="font-size:25px;position:absolute;top:15px;">BUY</h1></a>  
             </div>
     </div>
     <div class="productstop shadow">
@@ -48,6 +48,7 @@
 
         <div class="row">
             @foreach($produtos as $produto)
+            @if( $produto->nome_categoria != "Personal" )
             <?php
             $nomeimagem = "";
             if(file_exists("./img/produtos/".md5($produto->id).".jpg")) {
@@ -71,9 +72,10 @@
                 <h5 class="card-title">{{ $produto->nome }}</h5>
                 <p class="card-text">{{ $produto->nome_categoria }}</p>
                 <p class="card-text">{{ $produto->funcao }}</p>
-                <a class="btn btn-danger shadow-sm" href="{{url('produto/'. $produto->id )}}">{{ $produto->preco }}</a>
+                <a class="btn shadow-sm" style="background:#c21a01;color:white;" href="{{url('produto/'. $produto->id )}}">{{ $produto->preco }}</a>
             </div>
             </div>
+            @endif
             @endforeach
         </div>
 

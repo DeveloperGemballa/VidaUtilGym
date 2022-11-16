@@ -20,8 +20,6 @@ class CreateClientesTable extends Migration
             $table->string("endereco");
             $table->string("telefone");
             $table->string("email");
-            $table->string("situacao")->references("situacao")->on("mensalidades");
-            $table->dateTime("datasituacao");
             $table->timestamps();
         });
     }

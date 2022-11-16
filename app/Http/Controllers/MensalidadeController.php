@@ -57,16 +57,21 @@ class MensalidadeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    
     public function store(Request $request)
     {
+        $PRAZO_MENSALIDADE = 30;
         if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            $this->validate($request,[
+                'nome_pessoa' => 'required|min:3',
+                'situacao' => 'required',
+            ]);
         $mensalidade = new Mensalidade();
         $mensalidade->nome_pessoa = $request->input('cliente_id');
-        $mensalidade->situacao = $request->input('situacao');
+        $mensalidade->situacao = \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $request->input('datahora'));
         $mensalidade->fimmensalidade = null;
-        if ($request->input('situacao') == "pago") {
-            $mensalidade->updated_at = \Carbon\Carbon::now();
-        }
+        $mensalidade->created_at = \Carbon\Carbon::now();
         $mensalidade->updated_at =null;
 
         if($mensalidade->save()) {

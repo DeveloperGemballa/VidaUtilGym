@@ -1,7 +1,10 @@
 @extends('layout.app')
 @section('title','Criar novo Contato')
 @section('content')
-<div class="shadow alert">
+<br>
+<br>
+<br>
+<div class="alert container">
     
     <h1 class="display-4">Criar novo Cadastro: </h1>
     @if(count($errors) > 0)
@@ -31,10 +34,9 @@
     {!! Form::label('email', 'E-mail') !!}
     {!! Form::email('email', '', ['class'=>'form-control', 'required', 'placeholder' =>'E-mail ']) !!}
 
-    {!! Form::label('situacao', 'Situação') !!}
-    {!! Form::text('situacao', '', ['class'=>'form-control', 'required', 'placeholder' =>'Situação da mensalidade ']) !!}
     <hr>
-    {!! Form::submit('Salvar',['class'=>'btn btn-primary shadow']) !!} |
+    {!! Form::submit('Salvar',['class'=>'btn shadow', 'style' =>'background:#c21a01;
+        color:white;']) !!} |
     {!!Form::button('Cancelar',['onclick'=>'javascript:history.go(-1)', 'class'=>'btn btn-secondary shadow'])!!}
     {!! Form::close() !!}
 </div>

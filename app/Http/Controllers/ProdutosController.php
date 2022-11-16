@@ -21,8 +21,13 @@ class ProdutosController extends Controller
     {
         $produtos = Produto::all();
         $produtopromo = Produto::find(9);
-        $produtoscarousel = Produto::all();
-        return view("produto.index", array('produtos' => $produtos,'produtopromo' => $produtopromo,'produtoscarousel' => $produtoscarousel));
+        return view("produto.index", array('produtos' => $produtos,'produtopromo' => $produtopromo));
+    }
+    
+    public function academia()
+    {
+        $produtos = Produto::all();
+        return view("produto.academia", array('produtos' => $produtos));
     }
 
     /**
@@ -50,6 +55,12 @@ class ProdutosController extends Controller
     public function store(Request $request)
     {
         if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            $this->validate($request,[
+                'nome' => 'required|min:3',
+                'funcao' => 'required|min:3',
+                'preco' => 'required',
+                'nome-categoria' => 'required',
+            ]);
         $produto = new Produto();
         $produto->nome = $request->input('nome');
         $produto->funcao = $request->input('funcao');
@@ -93,6 +104,7 @@ class ProdutosController extends Controller
     public function edit($id)
     {
         if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            
         $categorias = Categoria::all();
         $produto = Produto::find($id);
         return view("produto.edit",array("produto"=>$produto,'categorias'=>$categorias));
@@ -112,6 +124,12 @@ class ProdutosController extends Controller
     public function update(Request $request, $id)
     {
         if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            $this->validate($request,[
+                'nome' => 'required|min:3',
+                'funcao' => 'required|min:3',
+                'preco' => 'required',
+                'nome-categoria' => 'required',
+            ]);
         if($request->hasFile('foto'))
             {
                 $imagem = $request->file('foto');

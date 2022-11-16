@@ -7,22 +7,19 @@
 <br>
 <br>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
+    <table class="table table-hover" style="background:#D9D9D9;border-radius:10px;">
+        <th><h1 class="display-6">Status</h1></th>
+        <tr>
+            <td>
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div> 
+                @endif
+                {{ __('You are logged in!') }}
+                <h1 class="display-6">Seu status:<mark>logged</mark></h1>
+            </td>
+        </tr>
+    </table>
 </div>
 @endsection

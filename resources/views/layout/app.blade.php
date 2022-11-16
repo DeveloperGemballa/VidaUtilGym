@@ -25,6 +25,10 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <style>
+        .btn:hover {
+        background:#c21a01;
+        color:black;
+    }
         .headermenu {
             width: 100%;
             
@@ -34,9 +38,10 @@
         .headermotivation {
             width: 100%;
             height: 9vh;
-
-            background: #F0BDBD;
+            color:white;
+            background: #c21a01;
             text-align:center;
+            text-shadow: 0.1em 0.1em 0.2em black
         }
         .productpromo {
             position: absolute;
@@ -76,17 +81,22 @@
         .nameredproductstop {
             width: 100%;
             height: 7vh;
-
-            background: #F0BDBD;    
+            color:white;
+            background: #c21a01;    
             border-radius: 35px;
             text-align:center;
             Font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+            text-shadow: 0.1em 0.1em 0.2em black
+        }
+        .display-6 {
+            text-shadow: 0.01em 0.1em 0.7em black
         }
     </style>
     <title>@yield('titleweb')</title>
 </head>
 <body>
     <div class="headermenu shadow">
+        <div style="background:#1c0113;color:white;" align="center">
         <!-- Authentication Links -->
         @guest
             @if (Route::has('login'))
@@ -113,6 +123,7 @@
                 </form>
             </div>
         @endguest
+        </div>
         <div class="headermotivation">
             @yield('motivation')
         </div>
@@ -126,7 +137,7 @@
         @if((Auth::check()) && (Auth::user()->isAdmin()))
         <a href="{{url('produto/create')}}" class="btn" style="margin:10px;">Adicionar produto</a> |
         @endif
-        <a href="/academia" class="btn btn-light" style="margin:10px;">Nossa Academia</a>
+        <a href="{{url('/academia')}}" class="btn btn-light" style="margin:10px;">Nossa Academia</a>
         
     </div>
     

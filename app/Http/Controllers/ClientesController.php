@@ -49,13 +49,19 @@ class ClientesController extends Controller
     public function store(Request $request)
     {
         if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            $this->validate($request,[
+                'nome' => 'required|min:3',
+                'cpf' => 'required',
+                'endereco' => 'required|min:3',
+                'telefone' => 'required|tel',
+                'email' => 'required|e-mail',
+            ]);
         $Cliente = new Cliente();
         $Cliente->nome = $request->input('nome');
         $Cliente->cpf = $request->input('cpf');
         $Cliente->endereco = $request->input('endereco');
         $Cliente->telefone = $request->input('telefone');
         $Cliente->email = $request->input('email');
-        $Cliente->situacao = $request->input('situacao');
         if($Cliente->save())
         {
             return redirect('admin');
@@ -87,6 +93,7 @@ class ClientesController extends Controller
     public function edit($id)
     {
         if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            
         $cliente = Cliente::find($id);
         return view("cliente.edit",array("cliente"=>$cliente));
     }
@@ -105,6 +112,13 @@ class ClientesController extends Controller
     public function update(Request $request, $id)
     {
         if ((Auth::check()) && (Auth::user()->isAdmin())) {
+            $this->validate($request,[
+                'nome' => 'required|min:3',
+                'cpf' => 'required',
+                'endereco' => 'required|min:3',
+                'telefone' => 'required|tel',
+                'email' => 'required|e-mail',
+            ]);
         $Cliente = Cliente::find($id);
         $Cliente->nome = $request->input('nome');
         $Cliente->cpf = $request->input('cpf');
