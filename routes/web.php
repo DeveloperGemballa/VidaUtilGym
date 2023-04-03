@@ -15,10 +15,6 @@ use App\Http\Controllers\MensalidadeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/laravel', function () {
-    return view('welcome');
-});
 Route::resource("/",ProdutosController::class);
 Route::resource("admin",ClientesController::class);
 Route::get('admin/buscar',[ClienteController::class,'buscar']);
